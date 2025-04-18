@@ -1,6 +1,6 @@
 <template>
   <header>
-    <h1>Movies</h1>
+    <h1>Movie Manager</h1>
     <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/movie">Movies</RouterLink>
