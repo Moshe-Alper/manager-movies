@@ -19,13 +19,15 @@ export default {
 
 <style lang="scss">
 .movie-preview {
-    display: grid;
-    grid-template-rows: auto auto 1fr;
-    gap: 10px;
-    text-align: center;
+
+    h1 {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
 
     img {
-        max-width: 100%;
+        width: 80px;
+        height: 80px;
         height: auto;
         border-radius: 5px;
     }
