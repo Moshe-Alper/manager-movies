@@ -14,6 +14,7 @@ import MovieList from '@/cmps/MovieList.vue';
 import MovieFilter from '@/cmps/MovieFilter.vue';
 import { movieService } from '@/services/movie.service';
 import { debounce } from '@/services/util.service';
+import { showErrorMsg, showSuccessMsg } from '@/services/event-bus.service';
 
 export default {
     data() {
@@ -23,16 +24,23 @@ export default {
     },
     methods: {
         async removeMovie(movieId) {
-            await movieService.remove(movieId)
+            try {
+                await movieService.remove(movieId)
+    
+                const idx = this.movie.findIndex(movie => movie._id = movieId)
+                this.movies.splice(idx, 1)
+                showSuccessMsg('Movie Deleted')
 
-            const idx = this.movie.findIndex(movie => movie._id = movieId)
-            this.movies.splice(idx, 1)
+            } catch (err) {
+               showErrorMsg('Failed to delete movie')
+            }
         },
         onFilter(filterBy) {
             this.debouncedLoadMovies(filterBy)
         },
         async loadMovies(filterBy = {}) {
             this.movies = await movieService.query(filterBy)
+            showSuccessMsg('Movies loaded!')
         },
     },
     async created() {
