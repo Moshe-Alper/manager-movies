@@ -5,6 +5,7 @@
                 <MoviePreview :movie="movie" />
                 <div class="actions">
                     <RouterLink :to="`movie/${movie._id}`"><button>Details</button></RouterLink>
+                    <RouterLink :to="`movie/edit/${movie._id}`"><button>Edit</button></RouterLink>
                     <button @click="onRemoveMovie(movie._id)">x</button>
                 </div>
             </li>

@@ -1,7 +1,7 @@
 <template>
   <div v-if="movie" class="movie-details">
     <h2>{{ movie.title }}</h2>
-    <RouterLink to="movie"><button>Back</button></RouterLink>
+    <RouterLink to="/movie"><button>Back</button></RouterLink>
   </div>
 </template>
 

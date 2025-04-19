@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/pages/Home.vue'
 import MovieIndex from '@/pages/MovieIndex.vue'
 import MovieDetails from '@/pages/MovieDetails.vue'
+import MovieEdit from '@/pages/MovieEdit.vue'
 
 const routerOptions = {
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +21,11 @@ const routerOptions = {
       path: '/movie/:id',
       name: 'MovieDetails',
       component: MovieDetails,
+    },
+    {
+      path: '/movie/edit/:id',
+      name: 'MovieEdit',
+      component: MovieEdit,
     },
     {
       path: '/about',
