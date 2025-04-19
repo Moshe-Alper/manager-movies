@@ -26,7 +26,10 @@ export default {
   },
   async created() {
     const { id: movieId } = this.$route.params
-    this.movie = await movieService.get(movieId)
+    if (movieId) {
+      this.movie = await movieService.get(movieId)
+    }
+    this.movie = movieService.getEmptyMovie()
   }
 
 }

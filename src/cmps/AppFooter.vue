@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <p>Copyrights Movie Manager</p>
+    <p>Coffee Rights Movie Manager</p>
   </footer>
 </template>
 
