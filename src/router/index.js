@@ -23,7 +23,7 @@ const routerOptions = {
       component: MovieDetails,
     },
     {
-      path: '/movie/edit/:id',
+      path: '/movie/edit/:id?',
       name: 'MovieEdit',
       component: MovieEdit,
     },
