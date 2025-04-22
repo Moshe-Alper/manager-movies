@@ -3,7 +3,8 @@ import { movieService } from "@/services/movie.service"
 export default {
     state() {
         return {
-            movies: []
+            movies: [],
+            filterBy: {},
         }
     },
     mutations: {
@@ -13,11 +14,14 @@ export default {
         removeMovie(state, { movieId }) {
             const idx = state.movie.findIndex(movie => movie._id = movieId)
             state.movies.splice(idx, 1)  
+        },
+        setFilter(state, {filterBy} ) {
+            state.filterBy = { ...filterBy}
         }
     },
     actions: {
-        async loadMovies({ commit }) {
-            const movies = await movieService.query()
+        async loadMovies({ commit, state }) {
+            const movies = await movieService.query(state.filterBy)
             commit({ type: 'setMovies', movies })
         },
         async removeMovie({ commit }, { movieId }) {
