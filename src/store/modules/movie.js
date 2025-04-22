@@ -5,6 +5,7 @@ export default {
         return {
             movies: [],
             filterBy: {},
+            savedMovies: []
         }
     },
     mutations: {
@@ -13,10 +14,16 @@ export default {
         },
         removeMovie(state, { movieId }) {
             const idx = state.movie.findIndex(movie => movie._id = movieId)
-            state.movies.splice(idx, 1)  
+            state.movies.splice(idx, 1)
         },
-        setFilter(state, {filterBy} ) {
-            state.filterBy = { ...filterBy}
+        setFilter(state, { filterBy }) {
+            state.filterBy = { ...filterBy }
+        },
+        saveMovies(state) {
+            state.saveMovies = [ ...state.movies ]
+        },
+        restoreMovies(state) {
+            state.saveMovies = state.saveMovies
         }
     },
     actions: {
@@ -25,8 +32,14 @@ export default {
             commit({ type: 'setMovies', movies })
         },
         async removeMovie({ commit }, { movieId }) {
-            await movieService.remove(movieId)
-            commit({ type: 'removeMovie', movieId })
+            try {
+                commit({ type: 'saveMovies' })
+                commit({ type: 'removeMovie', movieId })
+                await movieService.remove(movieId)
+            } catch (err) {
+                commit({ type: 'restoreMovies' })
+                throw err
+            }
         },
     },
     getters: {

@@ -37,6 +37,7 @@ export default {
         },
     },
     async created() {
+        this.$store.subscribe((cms, state) => console.log('🚀 cms, state', cms, state))
         this.debouncedLoadMovies = debounce((this.loadMovies))
         this.loadMovies()
     },
