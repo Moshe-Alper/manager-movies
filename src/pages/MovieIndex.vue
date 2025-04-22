@@ -17,18 +17,10 @@ import { debounce } from '@/services/util.service';
 import { showErrorMsg, showSuccessMsg } from '@/services/event-bus.service';
 
 export default {
-    data() {
-        return {
-            movies: null,
-        }
-    },
     methods: {
         async removeMovie(movieId) {
             try {
-                await movieService.remove(movieId)
-    
-                const idx = this.movie.findIndex(movie => movie._id = movieId)
-                this.movies.splice(idx, 1)
+                this.$store.dispatch({ type: 'removeMovie', movieId})
                 showSuccessMsg('Movie Deleted')
 
             } catch (err) {
@@ -39,13 +31,16 @@ export default {
             this.debouncedLoadMovies(filterBy)
         },
         async loadMovies(filterBy = {}) {
-            this.movies = await movieService.query(filterBy)
+            await this.$store.dispatch({ type: 'loadMovies'})
             showSuccessMsg('Movies loaded!')
         },
     },
     async created() {
         this.debouncedLoadMovies = debounce((this.loadMovies))
         this.loadMovies()
+    },
+    computed: {
+        movies() { return this.$store.getters.movies } 
     },
     components: {
         MovieList,
